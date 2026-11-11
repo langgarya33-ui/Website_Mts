@@ -82,7 +82,25 @@ export default function Navbar() {
                 <ul className="mt-2 space-y-1 rounded-lg border border-gray-200 bg-white p-2 shadow-lg md:absolute md:left-0 md:top-full md:mt-3 md:w-48">
                   <li>
                     <Link
-                      to="/guru"
+                      to="/profil"
+                      onClick={() => { setIsDropdownOpen(false); setIsMenuOpen(false); }}
+                      className="block rounded-lg p-2 text-gray-700 hover:bg-gray-100 hover:text-green-700"
+                    >
+                      Profil Sekolah
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/guru-karyawan"
+                      onClick={() => { setIsDropdownOpen(false); setIsMenuOpen(false); }}
+                      className="block rounded-lg p-2 text-gray-700 hover:bg-gray-100 hover:text-green-700"
+                    >
+                      Guru & Karyawan
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/visi-misi"
                       onClick={() => setIsDropdownOpen(false)}
                       className="block rounded-lg p-2 text-gray-700 hover:bg-gray-100 hover:text-green-700"
                     >
@@ -109,12 +127,6 @@ export default function Navbar() {
                   </li>
                 </ul>
               )}
-            </li>
-
-            <li>
-              <NavLink to="/profil" className={navLinkClass}>
-                Profil
-              </NavLink>
             </li>
 
           

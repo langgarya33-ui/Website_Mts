@@ -7,18 +7,20 @@ import {
   BookOpen,
   Users,
   CalendarDays,
+  Quote,
 } from "lucide-react";
 import PageHeader from "../component/PageHeader";
 import useFadeIn from "../utility/FadeIn";
+import { kepalaSekolah } from "../data/guru";
 import brosur_img from "../assets/image/brosur_contoh.jpeg";
 
 // ====== DATA SEKOLAH ======
 // Isi/ganti sesuai data resmi madrasah. Tanda "-" akan tampil apa adanya.
 const identitas = [
-  { label: "Nama Madrasah", nilai: "MTs An-Nur Klapanunggal", ikon: School },
-  { label: "NPSN", nilai: "-", ikon: BookOpen },
+  { label: "Sekolah", nilai: "MTs An-Nur Klapanunggal", ikon: School },
+  { label: "NPSN", nilai: "20277550", ikon: BookOpen },
   { label: "Status", nilai: "Swasta", ikon: School },
-  { label: "Akreditasi", nilai: "-", ikon: Award },
+  { label: "Akreditasi", nilai: "B", ikon: Award },
   { label: "Tahun Berdiri", nilai: "-", ikon: CalendarDays },
   { label: "Kurikulum", nilai: "-", ikon: BookOpen },
   { label: "Jumlah Siswa", nilai: "1.000+", ikon: Users },
@@ -33,6 +35,14 @@ const tentang = [
   "Melalui pendekatan yang seimbang antara ilmu pengetahuan dan nilai-nilai agama, madrasah mendorong siswa mengoptimalkan potensi diri agar siap menjadi lulusan unggul yang tangguh dan berprestasi.",
 ];
 
+// Teks sambutan sementara (dummy). Ganti dengan sambutan asli kepala madrasah.
+// Nama, jabatan, dan foto diambil dari kepalaSekolah di data/guru.js.
+const sambutan = [
+  "Puji syukur kita panjatkan kepada Allah SWT atas limpahan rahmat dan karunia-Nya. Selamat datang di website resmi MTs An-Nur Klapanunggal, sarana kami untuk berbagi informasi dengan siswa, orang tua, dan masyarakat.",
+  "Kami berkomitmen menghadirkan pendidikan yang seimbang antara ilmu pengetahuan dan nilai-nilai keislaman, agar setiap siswa tumbuh menjadi pribadi yang berakhlak mulia, disiplin, dan berprestasi.",
+  "Kami berharap website ini dapat memberikan informasi yang bermanfaat. Kritik dan saran dari semua pihak sangat kami harapkan demi kemajuan madrasah tercinta.",
+];
+
 const statistik = [
   { angka: "1.000+", teks: "Siswa Aktif" },
   { angka: "5.000+", teks: "Lulusan" },
@@ -41,6 +51,7 @@ const statistik = [
 
 export default function ProfilSekolah() {
   const [tentangRef, tentangVisible] = useFadeIn();
+  const [sambutanRef, sambutanVisible] = useFadeIn();
   const [identitasRef, identitasVisible] = useFadeIn();
   const [petaRef, petaVisible] = useFadeIn();
 
@@ -96,6 +107,53 @@ export default function ProfilSekolah() {
           </div>
         </section>
 
+        {/* Sambutan Kepala Madrasah */}
+        <section
+          ref={sambutanRef}
+          className={`fade-in-section grid items-center gap-8 rounded-2xl  bg-white p-6  md:grid-cols-[1fr_2fr] md:gap-10 md:p-10 ${sambutanVisible ? "visible" : ""}`}
+        >
+          <div className="flex flex-col items-center gap-4 text-center">
+            <img
+              src={kepalaSekolah.foto}
+              alt={kepalaSekolah.nama}
+              className="h-48 w-48 rounded-full border-4 border-primary object-cover object-top shadow-lg md:h-56 md:w-56"
+            />
+            <div>
+              <p className="font-sans text-base font-bold md:text-lg">
+                {kepalaSekolah.nama}
+              </p>
+              <p className="font-sans text-sm font-semibold text-primary">
+                {kepalaSekolah.jabatan}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <Quote
+              size={36}
+              className="text-primary/30"
+              aria-hidden="true"
+            />
+            <p className="font-sans text-sm font-bold text-primary">
+              SAMBUTAN KEPALA MADRASAH
+            </p>
+            <p className="font-sans text-sm font-semibold md:text-base">
+              Assalamu&apos;alaikum Warahmatullahi Wabarakatuh,
+            </p>
+            {sambutan.map((paragraf, i) => (
+              <p
+                key={i}
+                className="text-justify font-sans text-sm leading-relaxed text-gray-700 md:text-base"
+              >
+                {paragraf}
+              </p>
+            ))}
+            <p className="font-sans text-sm font-semibold md:text-base">
+              Wassalamu&apos;alaikum Warahmatullahi Wabarakatuh.
+            </p>
+          </div>
+        </section>
+
         {/* Identitas */}
         <section
           ref={identitasRef}
@@ -108,7 +166,7 @@ export default function ProfilSekolah() {
             {identitas.map(({ label, nilai, ikon: Ikon }) => (
               <div
                 key={label}
-                className="flex items-start gap-4 rounded-xl bg-white p-4 shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)]"
+                className="flex items-start gap-4 rounded-xl border-2 border-black bg-white p-4 shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)]"
               >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <Ikon size={20} aria-hidden="true" />
@@ -132,7 +190,7 @@ export default function ProfilSekolah() {
           <h2 className="text-center font-sans text-2xl font-bold md:text-3xl">
             Lokasi Sekolah
           </h2>
-          <div className="mt-8 overflow-hidden rounded-xl shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)]">
+          <div className="mt-8 overflow-hidden rounded-xl border-2 border-black shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)]">
             <iframe
               title="Peta MTs An-Nur Klapanunggal"
               src="https://maps.google.com/maps?q=MTs%20An-Nur%20Klapanunggal&t=m&z=14&output=embed&iwloc=near"

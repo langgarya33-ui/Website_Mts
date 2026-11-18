@@ -118,6 +118,15 @@ export default function Navbar() {
                   </li>
                   <li>
                     <Link
+                      to="/kegiatan"
+                      onClick={() => { setIsDropdownOpen(false); setIsMenuOpen(false); }}
+                      className="block rounded-lg p-2 text-gray-700 hover:bg-gray-100 hover:text-green-700"
+                    >
+                      Kegiatan Sekolah
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       to="/berita"
                       onClick={() => setIsDropdownOpen(false)}
                       className="block rounded-lg p-2 text-gray-700 hover:bg-gray-100 hover:text-green-700"
@@ -131,6 +140,18 @@ export default function Navbar() {
 
           
             <li>
+              <NavLink to="/ekstrakurikuler" className={navLinkClass}>
+                Ekstrakurikuler
+              </NavLink>
+            </li>
+
+            <li>
+              <NavLink to="/prestasi" className={navLinkClass}>
+                Prestasi
+              </NavLink>
+            </li>
+
+            <li>
               <NavLink to="/kontak" className={navLinkClass}>
                 Kontak
               </NavLink>
@@ -138,8 +159,8 @@ export default function Navbar() {
 
             <li>
               <Link
-                to="/admin"
-                className="block rounded-lg bg-primary px-4 py-2 text-center text-white font-semibold transition hover:bg-green-800"
+                to="/spmb"
+                className="block whitespace-nowrap rounded-lg bg-primary px-4 py-2 text-center text-white font-semibold transition hover:bg-green-800"
               >
                 SPMB
               </Link>

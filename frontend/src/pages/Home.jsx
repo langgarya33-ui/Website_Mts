@@ -1,5 +1,6 @@
 
 import { useEffect, useRef, useState } from "react"
+import { Link } from "react-router-dom";
 import useFadeIn from "../utility/FadeIn";
 import foto_guru3 from "../assets/image/foto_guru3.jpeg";
 import Grad_img from "../assets/image/graduation-cap-svgrepo-com.svg";
@@ -101,12 +102,12 @@ export default function Home() {
           </p>
         </div>
 
-        <button
-          type="button"
-          className="min-h-12 w-full max-w-44 rounded-xl border border-black/20 bg-primary px-5 py-3 font-bold text-white shadow-[0_4px_10px_rgba(0,0,0,0.15),0_1px_3px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 hover:bg-green-700 hover:shadow-[0_10px_25px_rgba(0,0,0,0.25)] active:translate-y-0 active:shadow-sm"
+        <Link
+          to="/spmb"
+          className="flex min-h-12 w-full max-w-64 items-center justify-center rounded-xl border border-black/20 bg-primary px-5 py-3 text-center font-bold text-white shadow-[0_4px_10px_rgba(0,0,0,0.15),0_1px_3px_rgba(0,0,0,0.1)] transition-all duration-300 hover:-translate-y-1 hover:bg-green-700 hover:shadow-[0_10px_25px_rgba(0,0,0,0.25)] active:translate-y-0 active:shadow-sm"
         >
-          DAFTAR SPMB
-        </button>
+          SYARAT DAN KETENTUAN
+        </Link>
       </div>
 
       {/* Statistics glass card */}
@@ -193,22 +194,22 @@ export default function Home() {
 
           <div className="flex items-start gap-2">
             <span className="shrink-0 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#168653] text-xs font-bold text-white">✓</span>
-            <p>Demo</p>
+            <p>Pembelajaran Interaktif</p>
           </div>
 
           <div className="flex items-start gap-2">
             <span className="shrink-0 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#168653] text-xs font-bold text-white">✓</span>
-            <p>Demo</p>
+            <p>Lingkungan Bersih dan Nyaman</p>
           </div>
 
           <div className="flex items-start gap-2">
             <span className="shrink-0 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#168653] text-xs font-bold text-white">✓</span>
-            <p>Demo</p>
+            <p>Pembinaan Akhlak dan Karakter</p>
           </div>
 
           <div className="flex items-start gap-2">
             <span className="shrink-0 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#168653] text-xs font-bold text-white">✓</span>
-            <p>Demo</p>
+            <p>Disiplin dan Berprestasi</p>
           </div>
 
           <div className="flex items-start gap-2">

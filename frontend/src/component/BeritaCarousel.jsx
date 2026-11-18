@@ -12,9 +12,10 @@ export default function BeritaCarousel() {
 
       <div className="mt-10 w-[85%] h-[50vh]">
         <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-4 h-full  scrollbar-none [&::-webkit-scrollbar]:hidden">
-          {beritaTerbaru.map((item, index) => (
-            <div key={index} className="h-full w-[85%] flex-none snap-start sm:w-[320px] md:w-[360px] lg:w-[400px]">
+          {beritaTerbaru.map((item) => (
+            <div key={item.id} className="h-full w-[85%] flex-none snap-start sm:w-[320px] md:w-[360px] lg:w-[400px]">
               <BeritaCard
+                id={item.id}
                 gambar={item.gambar}
                 judul={item.judul}
                 tanggal={item.tanggal}

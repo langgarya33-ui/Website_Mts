@@ -46,7 +46,7 @@ export default function VisiMisi() {
         {/* Visi */}
         <section
           ref={visiRef}
-          className={`fade-in-section rounded-2xl bg-secondary p-6 shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] md:p-10 ${visiVisible ? "visible" : ""}`}
+          className={`fade-in-section rounded-2xl border-2 border-black bg-secondary p-6 shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] md:p-10 ${visiVisible ? "visible" : ""}`}
         >
           <div className="flex items-center gap-3">
             <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-white">
@@ -75,7 +75,7 @@ export default function VisiMisi() {
             {misi.map((item, index) => (
               <li
                 key={index}
-                className="flex items-start gap-4 rounded-xl border border-gray-200 bg-white p-4 md:p-5"
+                className="flex items-start gap-4 rounded-xl border-2 border-black bg-white p-4 md:p-5"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary font-sans text-sm font-bold text-white">
                   {index + 1}
@@ -104,7 +104,7 @@ export default function VisiMisi() {
             {nilai.map(({ nama, ikon: Ikon, teks }) => (
               <div
                 key={nama}
-                className="flex flex-col items-center gap-3 rounded-xl bg-white p-5 text-center shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]"
+                className="flex flex-col items-center gap-3 rounded-xl border-2 border-black bg-white p-5 text-center shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]"
               >
                 <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <Ikon size={24} aria-hidden="true" />

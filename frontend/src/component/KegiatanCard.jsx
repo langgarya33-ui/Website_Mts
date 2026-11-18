@@ -3,7 +3,7 @@ import { CalendarDays } from "lucide-react";
 
 export default function KegiatanCard({ gambar, judul, tanggal, deskripsi }) {
   return (
-    <div className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl bg-white shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]">
+    <div className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-black bg-white shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]">
       <div className="h-[50%] w-full shrink-0 overflow-hidden">
         <img
           src={gambar}

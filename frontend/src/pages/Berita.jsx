@@ -37,9 +37,10 @@ export default function Berita() {
 
         {hasil.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {hasil.map((item, index) => (
-              <div key={index} className="h-80">
+            {hasil.map((item) => (
+              <div key={item.id} className="h-80">
                 <BeritaCard
+                  id={item.id}
                   gambar={item.gambar}
                   judul={item.judul}
                   tanggal={item.tanggal}

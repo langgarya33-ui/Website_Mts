@@ -7,13 +7,13 @@ import foto_guru3 from "../assets/image/foto_guru3.jpeg";
 const fotoDummy = [foto_guru, foto_guru2, foto_guru3];
 
 export const kepalaSekolah = {
-  nama: "Nama Kepala Madrasah, S.Pd.",
+  nama: "H. A.Samsudi,S.Pd,M.M",
   jabatan: "Kepala Madrasah",
   foto: foto_guru,
 };
 
 const guru = [
-  { nama: "Ahmad Fauzi, S.Pd.", jabatan: "Wakil Kepala Kurikulum" },
+  { nama: "Dra.Hj.Fitri Wahyuni", jabatan: "Wakil Kepala Sekolah" },
   { nama: "Siti Aisyah, S.Pd.", jabatan: "Wakil Kepala Kesiswaan" },
   { nama: "Muhammad Rizki, S.Ag.", jabatan: "Guru Akidah Akhlak" },
   { nama: "Nur Hidayah, S.Pd.", jabatan: "Guru Bahasa Indonesia" },

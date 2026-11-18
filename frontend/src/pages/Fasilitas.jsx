@@ -73,7 +73,7 @@ export default function Fasilitas() {
           {fasilitas.map(({ nama, ikon: Ikon, deskripsi }) => (
             <article
               key={nama}
-              className="flex flex-col gap-3 rounded-xl bg-white p-5 shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]"
+              className="flex flex-col gap-3 rounded-xl border-2 border-black bg-white p-5 shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]"
             >
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <Ikon size={24} aria-hidden="true" />

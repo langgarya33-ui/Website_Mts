@@ -1,44 +1,10 @@
-
 import KegiatanCard from "../component/KegiatanCard";
-import foto_guru3 from "../assets/image/foto_guru3.jpeg";
 
-const kegiatan = [
-  {
-    gambar: foto_guru3,
-    judul: "Sidang Pengesahan Program Kerja MPK dan OSIS",
-    tanggal: "10 Oktober 2026",
-    deskripsi:
-      "Kegiatan pengesahan program kerja MPK dan OSIS sebagai langkah awal pelaksanaan program organisasi siswa.",
-  },
-  {
-    gambar: foto_guru3,
-    judul: "Kegiatan Pembelajaran di Lingkungan Sekolah",
-    tanggal: "12 Oktober 2026",
-    deskripsi:
-      "Kegiatan pembelajaran untuk meningkatkan pengetahuan, kreativitas, dan kemampuan siswa.",
-  },
-  {
-    gambar: foto_guru3,
-    judul: "Kegiatan Ekstrakurikuler Siswa",
-    tanggal: "15 Oktober 2026",
-    deskripsi:
-      "Kegiatan pengembangan minat dan bakat siswa melalui program ekstrakurikuler sekolah.",
-  },
-  {
-    gambar: foto_guru3,
-    judul: "Peringatan Hari Besar Nasional",
-    tanggal: "20 Oktober 2026",
-    deskripsi:
-      "Kegiatan sekolah untuk menumbuhkan rasa nasionalisme dan kebersamaan antarsiswa.",
-  },
-  {
-    gambar: foto_guru3,
-    judul: "Kegiatan Kebersihan Lingkungan Sekolah",
-    tanggal: "22 Oktober 2026",
-    deskripsi:
-      "Kegiatan menjaga kebersihan lingkungan sekolah dan membangun kepedulian terhadap lingkungan.",
-  },
-];
+import { Link } from "react-router-dom";
+import kegiatanSemua from "../data/kegiatan";
+
+// Beranda hanya menampilkan 5 kegiatan; selengkapnya ada di halaman Kegiatan Sekolah
+const kegiatan = kegiatanSemua.slice(0, 5);
 
 export default function KegiatanCarousel() {
   return (
@@ -64,7 +30,12 @@ export default function KegiatanCarousel() {
           ))}
         </div>
       </div>
-      <button className="mt-4 h-15 w-50 rounded-full border border-primary font-semibold text-primary transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-primary hover:text-white hover:shadow-lg active:translate-y-0 active:scale-95 hover:cursor-pointer">Lihat Semua Kegiatan</button>
+      <Link
+        to="/kegiatan"
+        className="mt-4 flex h-15 w-50 items-center justify-center rounded-full border border-primary font-semibold text-primary transition-all duration-300 ease-out hover:-translate-y-1 hover:bg-primary hover:text-white hover:shadow-lg active:translate-y-0 active:scale-95"
+      >
+        Lihat Semua Kegiatan
+      </Link>
     </section>
   );
 }

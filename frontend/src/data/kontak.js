@@ -4,9 +4,9 @@
 export const kontak = {
   nama: "MTs AN-NUR KLAPANUNGGAL",
   alamat: "Klapanunggal, Kab. Bogor, Jawa Barat",
-  telepon: "-",
-  email: "-",
-  whatsapp: "-", // format internasional tanpa +, contoh: 6281234567890
+  telepon: "081317723432 (Dra HJ.Fitri Wahyuni)",
+  email: "mtsannurklapanunggal@yahoo.com",
+  whatsapp: "6281317723432", // format internasional tanpa +, contoh: 6281234567890
   hari: "Senin – Sabtu",
   jam: "08.00 – 14.00", 
   petaQuery: "MTs An-Nur Klapanunggal",

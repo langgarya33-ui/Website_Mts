@@ -11,34 +11,41 @@ import {
 import PageHeader from "../component/PageHeader";
 import useFadeIn from "../utility/FadeIn";
 import { kontak } from "../data/kontak";
-// Foto formulir sementara memakai aset yang ada. Ganti dengan foto formulir asli.
-import fotoFormulir from "../assets/image/brosur_contoh.jpeg";
+import FotoSlider from "../component/FotoSlider";
+import brosur1 from "../assets/image/brosur/brosur_1_sampul.jpg";
+import brosur2 from "../assets/image/brosur/brosur_2_syarat_waktu.jpg";
+import brosur3 from "../assets/image/brosur/brosur_3_biaya.jpg";
+import brosur4 from "../assets/image/brosur/brosur_4_ekskul.jpg";
+import brosur5 from "../assets/image/brosur/brosur_5_alasan.jpg";
+import brosur6 from "../assets/image/brosur/brosur_6_tenaga_pengajar.jpg";
 
-// ====== DATA SPMB (DUMMY) ======
-// Ganti semua isi di bawah dengan informasi resmi madrasah.
+// Foto brosur yang bisa digeser. Urutan dan judul bisa diubah di sini.
+const fotoBrosur = [
+  { src: brosur1, judul: "Sampul Brosur" },
+  { src: brosur2, judul: "Syarat dan Waktu Pendaftaran" },
+  { src: brosur3, judul: "Administrasi Keuangan" },
+  { src: brosur4, judul: "Ekstrakurikuler dan Fasilitas" },
+  { src: brosur5, judul: "10 Alasan Memilih MTs An-Nur" },
+  { src: brosur6, judul: "Tenaga Pengajar" },
+];
+
+// ====== DATA SPMB  ======
 const tahunAjaran = "2027/2028";
 
 const intro =
-  "Sistem Penerimaan Murid Baru (SPMB) MTs An-Nur Klapanunggal dibuka bagi calon siswa yang ingin bergabung dan berkembang bersama kami. Halaman ini berisi informasi seputar jadwal, persyaratan, dan alur penerimaan.";
+  "Sistem Penerimaan Murid Baru (SPMB) MTs An-Nur Klapanunggal dibuka bagi calon siswa yang ingin bergabung dan berkembang bersama kami. Halaman ini berisi informasi seputar persyaratan dan alur penerimaan.";
 
-const jadwal = [
-  { tahap: "Pengumuman & Sosialisasi", tanggal: "1 – 31 Januari 2027" },
-  { tahap: "Pendaftaran Gelombang 1", tanggal: "1 Februari – 31 Maret 2027" },
-  { tahap: "Seleksi Gelombang 1", tanggal: "5 April 2027" },
-  { tahap: "Pendaftaran Gelombang 2", tanggal: "10 April – 31 Mei 2027" },
-  { tahap: "Seleksi Gelombang 2", tanggal: "5 Juni 2027" },
-  { tahap: "Pengumuman Hasil", tanggal: "12 Juni 2027" },
-  { tahap: "Daftar Ulang", tanggal: "14 – 25 Juni 2027" },
-];
 
 const persyaratan = [
-  "Lulusan SD/MI atau sederajat",
-  "Usia maksimal 15 tahun pada 1 Juli tahun ajaran berjalan",
-  "Fotokopi ijazah atau surat keterangan lulus (SKL)",
-  "Fotokopi Kartu Keluarga dan akta kelahiran",
-  "Fotokopi KTP orang tua/wali",
-  "Pas foto berwarna ukuran 3x4 sebanyak 4 lembar",
-  "Fotokopi kartu bantuan (KIP/PKH) bagi yang memiliki",
+  "Mengisi formulir pendaftaran yang telah disediakan",
+  "Fotokopi Surat Keterangan Lulus SD/MI sebanyak 2 lembar",
+  "Fotokopi ijazah SD/MI sebanyak 2 lembar, dilegalisir",
+  "Fotokopi Kartu Keluarga (KK) sebanyak 2 lembar",
+  "Fotokopi KTP ayah dan ibu, masing-masing 2 lembar",
+  "Fotokopi akta kelahiran atau surat keterangan lahir sebanyak 2 lembar",
+  "Pas foto background merah: ukuran 2x3 sebanyak 3 lembar dan 3x4 sebanyak 4 lembar",
+  "Membawa Nomor Induk Siswa Nasional (NISN)",
+  "Membayar keuangan yang telah ditetapkan",
 ];
 
 const alur = [
@@ -86,7 +93,6 @@ const kartu =
 export default function Spmb() {
   const [buka, setBuka] = useState(0);
   const [introRef, introVisible] = useFadeIn();
-  const [jadwalRef, jadwalVisible] = useFadeIn();
   const [syaratRef, syaratVisible] = useFadeIn();
   const [alurRef, alurVisible] = useFadeIn();
   const [faqRef, faqVisible] = useFadeIn();
@@ -99,50 +105,18 @@ export default function Spmb() {
       />
 
       <div className="mx-auto flex w-[90%] max-w-5xl flex-col gap-16 py-12 md:py-16">
-        {/* Pengantar */}
+               {/* Pengantar */}
         <section
           ref={introRef}
           className={`fade-in-section text-center ${introVisible ? "visible" : ""}`}
         >
-          <a
-            href={fotoFormulir}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mx-auto mb-8 block w-full max-w-md"
-            aria-label="Lihat foto formulir ukuran penuh"
-          >
-            <img
-              src={fotoFormulir}
-              alt="Formulir SPMB MTs An-Nur Klapanunggal"
-              className="w-full rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:scale-[1.02]"
-            />
-            <span className="mt-2 block font-sans text-xs text-gray-500">
-              Klik gambar untuk melihat ukuran penuh
-            </span>
-          </a>
+          <FotoSlider foto={fotoBrosur} />
           <p className="mx-auto max-w-3xl font-sans text-sm leading-relaxed text-gray-700 md:text-base">
             {intro}
           </p>
         </section>
 
-        {/* Jadwal */}
-        <section
-          ref={jadwalRef}
-          className={`fade-in-section ${jadwalVisible ? "visible" : ""}`}
-        >
-          <Judul ikon={CalendarDays}>Jadwal Penting</Judul>
-          <ol className="relative mx-auto max-w-2xl border-l-2 border-primary/30 pl-6">
-            {jadwal.map((item) => (
-              <li key={item.tahap} className="relative pb-6 last:pb-0">
-                <span className="absolute -left-[33px] top-1 h-4 w-4 rounded-full border-4 border-white bg-primary" />
-                <p className="font-sans text-sm font-bold text-gray-800 md:text-base">
-                  {item.tahap}
-                </p>
-                <p className="font-sans text-sm text-primary">{item.tanggal}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
+        
 
         {/* Persyaratan */}
         <section

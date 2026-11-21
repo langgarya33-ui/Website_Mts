@@ -14,6 +14,16 @@ const db = require("./config/database_mts");
 const app = express();
 const uploadDirectory = path.join(__dirname, "uploads");
 fs.mkdirSync(uploadDirectory, { recursive: true });
+const contentCache = new Map();
+const publishedImageCache = new Map();
+const CONTENT_CACHE_TTL_MS = 30 * 1000;
+
+function clearContentCache(type) {
+  for (const key of contentCache.keys()) {
+    if (key.startsWith(`${type}:`)) contentCache.delete(key);
+  }
+  publishedImageCache.clear();
+}
 
 const imageUpload = multer({
   storage: multer.memoryStorage(),
@@ -63,10 +73,21 @@ app.get("/uploads/:filename", (req, res) => {
 
   const imagePath = path.join(uploadDirectory, filename);
   if (req.session.admin) {
+    res.set("Cache-Control", "no-store");
     return res.sendFile(imagePath, (error) => {
       if (error && !res.headersSent) res.sendStatus(error.statusCode || 404);
     });
   }
+
+  const cachedAccess = publishedImageCache.get(filename);
+  if (cachedAccess && cachedAccess.expiresAt > Date.now()) {
+    if (!cachedAccess.isPublished) return res.sendStatus(404);
+    res.set("Cache-Control", "no-store");
+    return res.sendFile(imagePath, (error) => {
+      if (error && !res.headersSent) res.sendStatus(error.statusCode || 404);
+    });
+  }
+  if (cachedAccess) publishedImageCache.delete(filename);
 
   const sql = `
     SELECT 1 FROM berita
@@ -85,7 +106,10 @@ app.get("/uploads/:filename", (req, res) => {
       console.error("Gagal memeriksa akses gambar:", err);
       return res.sendStatus(500);
     }
-    if (!rows.length) return res.sendStatus(404);
+    const isPublished = rows.length > 0;
+    publishedImageCache.set(filename, { isPublished, expiresAt: Date.now() + CONTENT_CACHE_TTL_MS });
+    if (!isPublished) return res.sendStatus(404);
+    res.set("Cache-Control", "no-store");
     return res.sendFile(imagePath, (error) => {
       if (error && !res.headersSent) res.sendStatus(error.statusCode || 404);
     });
@@ -148,10 +172,19 @@ function serializeContentRow(type, row) {
 app.get("/api/content/:type", (req, res) => {
   const config = contentTypes[req.params.type];
   if (!config) return res.status(404).json({ message: "Jenis konten tidak ditemukan." });
-  const visibilitySql = req.session.admin ? "" : " WHERE status_publikasi = 'Sudah Publikasi'";
+  const isAdmin = Boolean(req.session.admin);
+  const cacheKey = `${req.params.type}:${isAdmin ? "admin" : "public"}`;
+  const cached = contentCache.get(cacheKey);
+  res.set("Cache-Control", "no-store");
+  if (cached && cached.expiresAt > Date.now()) return res.json(cached.data);
+  if (cached) contentCache.delete(cacheKey);
+
+  const visibilitySql = isAdmin ? "" : " WHERE status_publikasi = 'Sudah Publikasi'";
   db.query(`SELECT * FROM ${config.table}${visibilitySql} ORDER BY ${config.id} DESC`, (err, rows) => {
     if (err) return res.status(500).json({ message: "Gagal mengambil data. Pastikan tabel sudah dibuat sesuai skema." });
-    return res.json(rows.map((row) => serializeContentRow(req.params.type, row)));
+    const data = rows.map((row) => serializeContentRow(req.params.type, row));
+    contentCache.set(cacheKey, { data, expiresAt: Date.now() + CONTENT_CACHE_TTL_MS });
+    return res.json(data);
   });
 });
 
@@ -205,6 +238,7 @@ app.post("/api/content/:type", requireAdmin, (req, res, next) => {
             : "Gagal menyimpan data. Periksa kolom tabel dan pastikan skema sudah sesuai.";
           return res.status(500).json({ message });
         }
+        clearContentCache(req.params.type);
         return res.status(201).json({ id: result.insertId, message: "Data berhasil ditambahkan." });
       });
     } catch (error) {
@@ -282,6 +316,7 @@ app.put("/api/content/:type/:id", requireAdmin, (req, res) => {
               return res.status(500).json({ message: "Gagal memperbarui data. Periksa kembali skema tabel." });
             }
             removedFiles.forEach((filename) => fs.promises.unlink(path.join(uploadDirectory, filename)).catch(() => {}));
+            clearContentCache(req.params.type);
             const warning = availableColumns.has("judul") ? undefined : "Kolom judul belum tersedia; perubahan judul tidak disimpan.";
             return res.json({ id: req.params.id, message: "Data berhasil diperbarui.", warning });
           },
@@ -303,6 +338,7 @@ app.delete("/api/content/:type/:id", requireAdmin, (req, res) => {
     db.query(`DELETE FROM ${config.table} WHERE ${config.id} = ?`, [req.params.id], (deleteError) => {
       if (deleteError) return res.status(500).json({ message: "Gagal menghapus data konten." });
       filenames.forEach((filename) => fs.promises.unlink(path.join(uploadDirectory, filename)).catch(() => {}));
+      clearContentCache(req.params.type);
       return res.json({ message: "Data berhasil dihapus." });
     });
   });

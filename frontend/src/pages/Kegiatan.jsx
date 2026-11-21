@@ -14,7 +14,7 @@ export default function Kegiatan() {
 
   const loadKegiatan = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/content/kegiatan", { credentials: "include" });
+      const response = await fetch("http://localhost:5000/api/content/kegiatan", { credentials: "include", cache: "no-store" });
       const items = response.ok ? await response.json() : [];
       setKegiatan(items.filter((item) => item.status_publikasi === "Sudah Publikasi" || admin));
     } catch {
@@ -68,7 +68,7 @@ export default function Kegiatan() {
           )}
         </section>
       </div>
-      <ModalPrestasiKegiatan key={isModalOpen ? "open" : "closed"} tipe="kegiatan" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onCreated={async (_id, status) => { setFilterStatus(status); await loadKegiatan(); }} />
+      <ModalPrestasiKegiatan key={isModalOpen ? "open" : "closed"} tipe="kegiatan" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onCreated={async () => { setFilterStatus("semua"); await loadKegiatan(); }} />
     </>
   );
 }

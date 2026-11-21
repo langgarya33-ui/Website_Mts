@@ -14,7 +14,7 @@ export default function Berita() {
 
   const loadBerita = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/content/berita", { credentials: "include" });
+      const response = await fetch("http://localhost:5000/api/content/berita", { credentials: "include", cache: "no-store" });
       const items = response.ok ? await response.json() : [];
       setBerita(items.filter((item) => item.status_publikasi === "Sudah Publikasi" || admin));
     } catch {
@@ -72,9 +72,9 @@ export default function Berita() {
         {hasil.length > 0 ? (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {hasil.map((item) => (
-              <div key={item.id} className="h-80">
+              <div key={item.id_berita || item.id} className="h-80">
                 <div className="relative h-full">
-                  <BeritaCard id={item.id_berita ? `id/${item.id_berita}` : item.id} status_publikasi={item.status_publikasi} gambar={item.gambar ? `http://localhost:5000/uploads/${item.gambar}` : item.gambar} judul={item.judul || item.isi} tanggal={item.tanggal} />
+                  <BeritaCard id={item.id_berita ? `id/${item.id_berita}` : item.id} status_publikasi={item.status_publikasi} gambar={item.gambar ? `http://localhost:5000/uploads/${item.gambar}` : item.gambar} judul={item.judul || item.isi} tanggal={item.tanggal} deskripsi={item.deskripsi} />
                 </div>
               </div>
             ))}
@@ -83,7 +83,7 @@ export default function Berita() {
           <p className="py-10 text-center font-sans text-gray-500">{berita.length ? "Tidak ada berita yang cocok dengan pencarianmu." : "Belum ada berita yang dipublikasikan."}</p>
         )}
       </section>
-      <ModalBerita key={isModalOpen ? "open" : "closed"} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onCreated={async (_id, status) => { setKata(""); setFilterStatus(status); await loadBerita(); }} />
+      <ModalBerita key={isModalOpen ? "open" : "closed"} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onCreated={async () => { setKata(""); setFilterStatus("semua"); await loadBerita(); }} />
     </>
   );
 }

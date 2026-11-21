@@ -177,7 +177,7 @@ export default function Home() {
       <img
         src={brosur_img}
         alt="Brosur PPDB MTs An-Nur Klapanunggal"
-        className="w-full h-full  rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:-translate-y-1"
+        className="w-[30vw] h-[75vh]  rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.12)] transition-transform duration-300 hover:-translate-y-1"
       />
     </div>
       <div className="flex flex-col items-start justify-start  w-[90%] h-[60%] pb-4  md:w-[30%] md:ml-6">
@@ -187,7 +187,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4 mt-8">
           <div className="flex items-start gap-2">
             <span className="shrink-0 mt-1 flex h-4 w-4 items-center justify-center rounded-full bg-[#168653] text-xs font-bold text-white">✓</span>
-            <p>Akreditasi</p>
+            <p>Akreditasi B</p>
           </div>
 
           <div className="flex items-start gap-2">

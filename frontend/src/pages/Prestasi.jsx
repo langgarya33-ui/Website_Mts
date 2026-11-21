@@ -17,7 +17,7 @@ export default function Prestasi() {
 
   const loadPrestasi = useCallback(async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/content/prestasi", { credentials: "include" });
+      const response = await fetch("http://localhost:5000/api/content/prestasi", { credentials: "include", cache: "no-store" });
       const items = response.ok ? await response.json() : [];
       setPrestasi(items.filter((item) => item.status_publikasi === "Sudah Publikasi" || admin));
     } catch {
@@ -60,7 +60,7 @@ export default function Prestasi() {
           </div> : <p className="mt-10 text-center font-sans text-sm text-gray-500">Belum ada prestasi di tingkat ini.</p>}
         </section>
       </div>
-      <ModalPrestasiKegiatan key={isModalOpen ? "open" : "closed"} tipe="prestasi" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onCreated={async (_id, status) => { setFilterStatus(status); await loadPrestasi(); }} />
+      <ModalPrestasiKegiatan key={isModalOpen ? "open" : "closed"} tipe="prestasi" isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onCreated={async () => { setFilterStatus("semua"); await loadPrestasi(); }} />
     </>
   );
 }

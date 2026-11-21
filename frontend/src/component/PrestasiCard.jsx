@@ -1,4 +1,6 @@
 import { Trophy, User, CalendarDays } from "lucide-react";
+import { Link } from "react-router-dom";
+import { formatDate } from "../utility/formatDate";
 
 const labelTingkat = {
   kecamatan: "Kecamatan",
@@ -7,9 +9,10 @@ const labelTingkat = {
   nasional: "Nasional",
 };
 
-export default function PrestasiCard({ foto, lomba, juara, tingkat, peraih, tahun }) {
+export default function PrestasiCard({ id, foto, lomba, juara, tingkat, peraih, tahun, status_publikasi }) {
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-xl border-2 border-black bg-white shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 ease-out hover:-translate-y-2 hover:border-black hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]">
+    <Link to={id ? `/prestasi/${id}` : "/prestasi"} className="group relative flex h-full flex-col overflow-hidden rounded-xl border-2 border-primary bg-white shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 ease-out hover:-translate-y-2 hover:border-primary hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]">
+      {status_publikasi && <span className="absolute left-3 top-3 z-10 rounded-full bg-primary px-3 py-1 font-sans text-xs font-semibold text-white">{status_publikasi === "Draft" ? "Draft" : "Sudah Publikasi"}</span>}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
         <img
           src={foto}
@@ -36,10 +39,10 @@ export default function PrestasiCard({ foto, lomba, juara, tingkat, peraih, tahu
           </li>
           <li className="flex items-center gap-2">
             <CalendarDays size={16} className="shrink-0 text-primary" aria-hidden="true" />
-            {tahun}
+            {formatDate(tahun)}
           </li>
         </ul>
       </div>
-    </article>
+    </Link>
   );
 }

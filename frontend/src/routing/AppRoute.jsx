@@ -13,9 +13,13 @@ import Prestasi from "../pages/Prestasi";
 import Kegiatan from "../pages/Kegiatan";
 import NotFound from "../pages/NotFound";
 import PublicLayout from "../layout/PublicLayout";
+import LoginPage from "../pages/admin/LoginPage";
+import ContentDetail from "../pages/ContentDetail";
 export default function AppRoutes() {
   return (
+    
     <Routes>
+      <Route path = "/admin/login" element = {<LoginPage/>}/>
       <Route element={<PublicLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/profil" element={<ProfilSekolah />} />
@@ -23,12 +27,15 @@ export default function AppRoutes() {
         <Route path="/spmb" element={<Spmb />} />
         <Route path="/ekstrakurikuler" element={<Ekstrakurikuler />} />
         <Route path="/prestasi" element={<Prestasi />} />
+        <Route path="/prestasi/:id" element={<ContentDetail tipe="prestasi" />} />
         <Route path="/kegiatan" element={<Kegiatan />} />
+        <Route path="/kegiatan/:id" element={<ContentDetail tipe="kegiatan" />} />
         <Route path="/kontak" element={<Kontak />} />
         <Route path="/visi-misi" element={<VisiMisi />} />
         <Route path="/fasilitas" element={<Fasilitas />} />
         <Route path="/berita" element={<Berita />} />
         <Route path="/berita/:id" element={<BeritaDetail />} />
+        <Route path="/berita/id/:id" element={<ContentDetail tipe="berita" />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

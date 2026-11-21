@@ -9,8 +9,9 @@ body,
 }
 @theme {
   --color-primary: #5d9253;
-  --color-secondary: #F9FAFB;
+  --color-secondary: #f9fafb;
   --font-sans: "Work Sans", sans-serif;
+  --color-fade-blue: #bcccd8;
 }
 
 .fade-in-section {

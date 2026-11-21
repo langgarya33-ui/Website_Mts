@@ -3,9 +3,11 @@ import { ArrowLeft, CalendarDays } from "lucide-react";
 import PageHeader from "../component/PageHeader";
 import BeritaCard from "../component/BeritaCard";
 import berita from "../data/berita";
+import ContentDetail from "./ContentDetail";
 
 export default function BeritaDetail() {
   const { id } = useParams();
+  if (/^\d+$/.test(id)) return <ContentDetail tipe="berita" />;
   const item = berita.find((b) => b.id === id);
 
   if (!item) {

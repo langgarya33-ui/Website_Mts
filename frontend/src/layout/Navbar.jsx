@@ -1,10 +1,25 @@
 
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Logo from '../assets/image/logo_mts.png'
+import { useAdminSession } from "../pages/admin/AdminSessionContext";
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [signOutError, setSignOutError] = useState("");
+  const { admin, isLoading, signOut } = useAdminSession();
+  const navigate = useNavigate();
+
+  async function handleSignOut() {
+    setSignOutError("");
+    try {
+      await signOut();
+      setIsMenuOpen(false);
+      navigate("/admin/login");
+    } catch (error) {
+      setSignOutError(error.message || "Gagal keluar dari akun admin.");
+    }
+  }
 
   const navLinkClass = ({ isActive }) =>
     `block rounded px-3 py-2 md:p-0 transition-colors ${
@@ -165,7 +180,19 @@ export default function Navbar() {
                 SPMB
               </Link>
             </li>
+            {admin && !isLoading && (
+              <li>
+                <button
+                  type="button"
+                  onClick={handleSignOut}
+                  className="block w-full whitespace-nowrap rounded-lg border border-primary px-4 py-2 text-center font-semibold text-primary transition hover:bg-primary hover:text-white"
+                >
+                  Sign out
+                </button>
+              </li>
+            )}
           </ul>
+          {signOutError && <p role="alert" className="mt-2 text-right text-sm text-red-700">{signOutError}</p>}
         </div>
       </div>
     </nav>

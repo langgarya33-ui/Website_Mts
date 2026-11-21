@@ -8,15 +8,13 @@ import Stud_img from "../assets/image/student-svgrepo-com.svg";
 import Sport_img from "../assets/image/sports-svgrepo-com.svg";
 import brosur_img from "../assets/image/brosur_contoh.jpeg"
 import BeritaCarousel from "../component/BeritaCarousel";
-import KegiatanCard from "../component/KegiatanCard";
 import KegiatanCarousel from "../component/KegiatanCarousel";
+import GuruCarousel from "../component/GuruCarousel";
 function CountUp({ end, duration = 2000 }) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const countRef = useRef(null);
 
-
-  // Jalankan animasi saat statistik terlihat
   useEffect(() => {
     const element = countRef.current;
 
@@ -221,6 +219,8 @@ export default function Home() {
     </section>
     <BeritaCarousel/>
     <KegiatanCarousel/>
+    <GuruCarousel />
     </>
   );
 }
+  

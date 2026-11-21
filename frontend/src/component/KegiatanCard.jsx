@@ -1,9 +1,12 @@
 
 import { CalendarDays } from "lucide-react";
+import { Link } from "react-router-dom";
+import { formatDate } from "../utility/formatDate";
 
-export default function KegiatanCard({ gambar, judul, tanggal, deskripsi }) {
+export default function KegiatanCard({ id, gambar, judul, tanggal, deskripsi, status_publikasi }) {
   return (
-    <div className="group flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-black bg-white shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]">
+    <Link to={id ? `/kegiatan/${id}` : "/kegiatan"} className="group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-xl border-2 border-primary bg-white shadow-[0_1px_2px_0_rgba(60,64,67,0.3),0_1px_3px_1px_rgba(60,64,67,0.15)] transition-all duration-300 ease-out hover:-translate-y-2 hover:border-primary hover:shadow-[0_8px_20px_rgba(60,64,67,0.18)]">
+      {status_publikasi && <span className="absolute left-2 top-2 z-10 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-white">{status_publikasi === "Draft" ? "Draft" : "Sudah Publikasi"}</span>}
       <div className="h-[50%] w-full shrink-0 overflow-hidden">
         <img
           src={gambar}
@@ -19,13 +22,13 @@ export default function KegiatanCard({ gambar, judul, tanggal, deskripsi }) {
 
         <div className="flex items-center gap-2 text-sm text-gray-500">
           <CalendarDays size={17} className="shrink-0 text-primary" />
-          <p className="font-sans text-primary">{tanggal}</p>
+          <p className="font-sans text-primary">{formatDate(tanggal)}</p>
         </div>
 
         <p className="font-sans line-clamp-3 text-sm leading-relaxed text-gray-600">
           {deskripsi}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }

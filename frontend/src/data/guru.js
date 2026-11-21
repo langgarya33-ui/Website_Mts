@@ -12,7 +12,7 @@ export const kepalaSekolah = {
   foto: foto_guru,
 };
 
-const guru = [
+export const guru = [
   { nama: "Dra.Hj.Fitri Wahyuni", jabatan: "Wakil Kepala Sekolah" },
   { nama: "Siti Aisyah, S.Pd.", jabatan: "Wakil Kepala Kesiswaan" },
   { nama: "Muhammad Rizki, S.Ag.", jabatan: "Guru Akidah Akhlak" },
